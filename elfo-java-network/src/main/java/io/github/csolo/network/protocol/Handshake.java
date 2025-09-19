@@ -1,6 +1,5 @@
 package io.github.csolo.network.protocol;
 
-import io.vavr.control.Try;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -78,11 +77,7 @@ public class Handshake {
   }
 
   /** Parses handshake from bytes from socket. */
-  public static Try<Handshake> fromBytes(byte[] data) {
-    return Try.of(() -> fromBytesImpl(data));
-  }
-
-  private static Handshake fromBytesImpl(byte[] data) {
+  public static Handshake fromBytes(byte[] data) {
     assert data != null : "Data cannot be null";
 
     if (data.length < HANDSHAKE_LENGTH) {
@@ -121,12 +116,5 @@ public class Handshake {
 
   public int getCapabilities() {
     return capabilities;
-  }
-
-  @Override
-  public String toString() {
-    return String.format(
-        "Handshake{version=%d, nodeNo=%d, launchId=%d, capabilities=%d}",
-        version, nodeNo, launchId, capabilities);
   }
 }

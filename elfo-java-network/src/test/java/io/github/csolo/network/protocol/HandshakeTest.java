@@ -2,7 +2,6 @@ package io.github.csolo.network.protocol;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import io.vavr.control.Try;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -63,9 +62,7 @@ class HandshakeTest {
       byte[] data = original.toBytes();
       assertEquals(Handshake.HANDSHAKE_LENGTH, data.length);
 
-      Try<Handshake> result = Handshake.fromBytes(data);
-      assertTrue(result.isSuccess());
-      Handshake deserialized = result.get();
+      Handshake deserialized = Handshake.fromBytes(data);
       assertEquals(original.getVersion(), deserialized.getVersion());
       assertEquals(original.getNodeNo(), deserialized.getNodeNo());
       assertEquals(original.getLaunchId(), deserialized.getLaunchId());
@@ -79,12 +76,10 @@ class HandshakeTest {
       // Given
       byte[] shortData = new byte[length];
 
-      // When
-      Try<Handshake> result = Handshake.fromBytes(shortData);
-
-      // Then
-      assertTrue(result.isFailure());
-      assertTrue(result.getCause().getMessage().contains("Expected handshake of length"));
+      // When & Then
+      IllegalArgumentException exception =
+          assertThrows(IllegalArgumentException.class, () -> Handshake.fromBytes(shortData));
+      assertTrue(exception.getMessage().contains("Expected handshake of length"));
     }
 
     @Test
@@ -99,23 +94,17 @@ class HandshakeTest {
       invalidData[3] = (byte) 0xEF;
       // Rest is zeros
 
-      // When
-      Try<Handshake> result = Handshake.fromBytes(invalidData);
-
-      // Then
-      assertTrue(result.isFailure());
-      assertTrue(result.getCause().getMessage().contains("Handshake magic did not match"));
+      // When & Then
+      IllegalArgumentException exception =
+          assertThrows(IllegalArgumentException.class, () -> Handshake.fromBytes(invalidData));
+      assertTrue(exception.getMessage().contains("Handshake magic did not match"));
     }
 
     @Test
     @DisplayName("Should fail with null data")
     void shouldFailWithNullData() {
-      // When
-      Try<Handshake> result = Handshake.fromBytes(null);
-
-      // Then
-      assertTrue(result.isFailure(), "Should fail with null data");
-      assertInstanceOf(AssertionError.class, result.getCause(), "Should throw AssertionError");
+      // When & Then
+      assertThrows(AssertionError.class, () -> Handshake.fromBytes(null));
     }
   }
 }

@@ -12,14 +12,11 @@ public class TcpRawSocket {
 
     var addr = tcp.toSocketAddress();
     var channel = SocketChannel.open();
-    // we use blocking mode because we use virtual threads
+    // blocking mode is ok because we use virtual threads
     channel.configureBlocking(true);
     channel.connect(addr);
-
-    // Configure socket settings
     configureSocket(channel);
 
-    // Create socket info
     var socketInfo = new RawSocket.Info.Tcp(channel.getLocalAddress(), addr);
 
     return new RawSocket(channel, socketInfo);

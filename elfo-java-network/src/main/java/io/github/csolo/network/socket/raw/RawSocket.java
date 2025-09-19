@@ -1,7 +1,7 @@
 package io.github.csolo.network.socket.raw;
 
 import io.github.csolo.network.config.Transport;
-import io.vavr.control.Try;
+import java.io.IOException;
 import java.net.SocketAddress;
 import java.nio.channels.SocketChannel;
 import org.jetbrains.annotations.NotNull;
@@ -20,25 +20,15 @@ public record RawSocket(SocketChannel channel, Info info) {
   }
 
   /** Connect to a raw socket. */
-  public static Try<RawSocket> connect(Transport transport) {
-    return Try.of(
-        () ->
-            switch (transport) {
-              case Transport.Tcp tcp -> TcpRawSocket.connect(tcp);
-              case Transport.Uds uds -> UdsRawSocket.connect(uds);
-            });
+  public static RawSocket connect(Transport transport) throws IOException {
+    return switch (transport) {
+      case Transport.Tcp tcp -> TcpRawSocket.connect(tcp);
+      case Transport.Uds uds -> UdsRawSocket.connect(uds);
+    };
   }
 
   /** Close the raw socket connection. */
-  public Try<Void> close() {
-    return Try.of(
-        () -> {
-          try {
-            channel.close();
-            return null;
-          } catch (Exception e) {
-            throw new RuntimeException("Failed to close raw socket", e);
-          }
-        });
+  public void close() throws IOException {
+    channel.close();
   }
 }
