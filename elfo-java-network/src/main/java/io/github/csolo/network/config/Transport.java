@@ -1,6 +1,7 @@
 package io.github.csolo.network.config;
 
 import io.vavr.control.Try;
+import java.net.InetSocketAddress;
 import java.nio.file.Path;
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
@@ -18,6 +19,13 @@ public sealed interface Transport {
     @NotNull
     public String toString() {
       return "tcp://" + address;
+    }
+
+    public InetSocketAddress toSocketAddress() {
+      String[] parts = address.split(":");
+      String host = parts[0];
+      int port = Integer.parseInt(parts[1]);
+      return new InetSocketAddress(host, port);
     }
   }
 

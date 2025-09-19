@@ -115,7 +115,7 @@ class HandshakeTest {
 
       // Then
       assertTrue(result.isFailure(), "Should fail with null data");
-      assertTrue(result.getCause() instanceof AssertionError, "Should throw AssertionError");
+      assertInstanceOf(AssertionError.class, result.getCause(), "Should throw AssertionError");
     }
   }
 }

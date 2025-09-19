@@ -3,7 +3,7 @@
 Java bridge for [elfo](https://github.com/elfo-rs/elfo) actor framework. 
 This project provides a way for Java applications to interact with elfo-network as if they were native elfo nodes.
 
-!!!IMPLEMENTATION IS NOT READY YET!!!
+!!! IMPLEMENTATION IS NOT READY YET !!!
 
 ## Architecture
 
