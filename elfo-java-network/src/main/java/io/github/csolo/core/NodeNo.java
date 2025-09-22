@@ -1,4 +1,4 @@
-package io.github.csolo.core.node;
+package io.github.csolo.core;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -24,6 +24,7 @@ public class NodeNo {
   /**
    * Sets the current node number.
    *
+   * @param nodeNo Node number (must be > 0)
    * @throws IllegalArgumentException if nodeNo is 0 or negative
    */
   public static void setNodeNo(int nodeNo) {

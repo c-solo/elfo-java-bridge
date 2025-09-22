@@ -1,6 +1,6 @@
 package io.github.csolo.core.tracing;
 
-import io.github.csolo.core.node.NodeNo;
+import io.github.csolo.core.NodeNo;
 import java.util.concurrent.atomic.AtomicLong;
 
 /** Generator for creating new TraceIds. Thread-safe singleton implementation. */

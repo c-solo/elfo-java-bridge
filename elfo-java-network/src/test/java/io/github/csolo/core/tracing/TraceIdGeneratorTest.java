@@ -2,7 +2,7 @@ package io.github.csolo.core.tracing;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import io.github.csolo.core.node.NodeNo;
+import io.github.csolo.core.NodeNo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

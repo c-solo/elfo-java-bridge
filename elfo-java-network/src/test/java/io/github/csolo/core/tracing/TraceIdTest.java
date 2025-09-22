@@ -2,7 +2,7 @@ package io.github.csolo.core.tracing;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import io.github.csolo.core.node.NodeNo;
+import io.github.csolo.core.NodeNo;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;

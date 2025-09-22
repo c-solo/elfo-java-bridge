@@ -1,4 +1,4 @@
-package io.github.csolo.core.node;
+package io.github.csolo.core;
 
 import static org.junit.jupiter.api.Assertions.*;
 
